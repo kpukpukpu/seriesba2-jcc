@@ -34,7 +34,7 @@ public:
     {
         return nom;
     }
-    bool getprix()
+    bool getPrix()
     {
         return prime;
     }
@@ -130,7 +130,7 @@ class Bibliotheque
 	}
 	void afficher_auteurs (bool aprix = false){
 		for (size_t i= 0; i< biblio.size();++i ){
-			if (aprix and biblio[i]->getOeuvre().getAuteur().getprix()){
+			if (aprix and biblio[i]->getOeuvre().getAuteur().getPrix()){
 				cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl; 
 			}else if (not aprix){
 				cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl;
