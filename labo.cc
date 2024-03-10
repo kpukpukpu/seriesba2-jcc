@@ -14,7 +14,7 @@ class Souris
 	bool clonee; 
 	public : 
 	Souris(double p, string c, unsigned int a =0, unsigned int e = 36) 
-		: poids(p), couleur(c), age(a), esperance_vie(e) {cout << "Une nouvelle souris ! "<<endl;} 
+		: poids(p), couleur(c), age(a), esperance_vie(e), clonee(false) {cout << "Une nouvelle souris ! "<<endl;} 
 	Souris(Souris const& autre) 
 		: poids(autre.poids), couleur(autre.couleur), age(autre.age), esperance_vie((4 * autre.esperance_vie)/5) ,clonee(true)
 		{ cout << "Clonage d'une souris ! "<<endl;} 
