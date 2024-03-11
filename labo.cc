@@ -18,8 +18,8 @@ class Souris
 	Souris(Souris const& autre) 
 		: poids(autre.poids), couleur(autre.couleur), age(autre.age), esperance_vie((4 * autre.esperance_vie)/5) ,clonee(true)
 		{ cout << "Clonage d'une souris ! "<<endl;} 
-	~Souris(){ cout << "Fin d'une souris ..."<<endl;}
-	void afficher(){ 
+	~Souris(){ cout << "Fin d'une souris..."<<endl;}
+	void afficher() const{ 
 		if (clonee) {
 			cout << "Une souris " << couleur << ", clonee, de "<< age << " mois et pesant " << poids << " grammes"<<endl; 
 		}else{ 

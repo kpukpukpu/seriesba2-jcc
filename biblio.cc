@@ -30,11 +30,11 @@ class Auteur
 public:
     Auteur(string Nom, bool p = false)
         : nom(Nom), prime(p) {}
-    string getNom()
+    string getNom() const
     {
         return nom;
     }
-    bool getPrix()
+    bool getPrix() const
     {
         return prime;
     }
@@ -55,7 +55,7 @@ public:
     {
         return titre;
     }
-    Auteur getAuteur() const
+    Auteur const &getAuteur() const
     {
         return auteur;
     }
@@ -79,9 +79,9 @@ class Exemplaire
     Oeuvre const &oeuvre;
 
 public:
-    Exemplaire(Oeuvre &o) : oeuvre(o) { cout << " Nouvel exemplaire de : " << o.getTitreComplet() << endl; } // get ?? //
+    Exemplaire(Oeuvre &o) : oeuvre(o) { cout << "Nouvel exemplaire de : " << o.getTitreComplet() << endl; } // get ?? //
     Exemplaire(Exemplaire const &autre)
-        : oeuvre(autre.oeuvre) { cout << " Copie d'un exemplaire de : " << autre.oeuvre.getTitreComplet() << endl; }
+        : oeuvre(autre.oeuvre) { cout << "Copie d'un exemplaire de : " << autre.oeuvre.getTitreComplet() << endl; }
     ~Exemplaire()
     {
         cout << "Un exemplaire de \"" << oeuvre.getTitreComplet() << "\" a été jeté ! " << endl;
@@ -101,7 +101,7 @@ class Bibliotheque
  vector <Exemplaire *> biblio; 
   public:
   Bibliotheque (string Nom): nom(Nom) {
-    cout << " La bibliothèque "<< nom << " est ouverte !"<< endl; 
+    cout << "La bibliothèque "<< nom << " est ouverte !"<< endl; 
   }
   string getNom() const { 
     return nom;
@@ -119,32 +119,32 @@ class Bibliotheque
         }
     }
 }
-	int compter_exemplaires(Oeuvre const& oeuvre) {
-		int resultat = 0;
-		for (size_t i= 0; i< biblio.size();++i ){
-			if (biblio[i]->getOeuvre().getTitre() == oeuvre.getTitre()){
-				++resultat; 
-			}
-		}
-		return resultat; 
-	}
-	void afficher_auteurs (bool aprix = false){
-		for (size_t i= 0; i< biblio.size();++i ){
-			if (aprix and biblio[i]->getOeuvre().getAuteur().getPrix()){
-				cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl; 
-			}else if (not aprix){
-				cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl;
-			}
-		}
-	}
-	~Bibliotheque()
-	{   cout << "La bibliotèque "<<nom <<" ferme ses portes, "<<endl <<" et détruit ses exemplaires : "<<endl; 
-		for(auto& element:biblio){
-			delete element;
-			element = nullptr;
-		}
-	}
-			
+ int compter_exemplaires(Oeuvre const& oeuvre) {
+  int resultat = 0;
+  for (size_t i= 0; i< biblio.size();++i ){
+   if (biblio[i]->getOeuvre().getTitre() == oeuvre.getTitre()){
+    ++resultat; 
+   }
+  }
+  return resultat; 
+ }
+ void afficher_auteurs (bool aprix = false){
+  for (size_t i= 0; i< biblio.size();++i ){
+   if (aprix and biblio[i]->getOeuvre().getAuteur().getPrix()){
+    cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl; 
+   }else if (not aprix){
+    cout << biblio[i]->getOeuvre().getAuteur().getNom() << endl;
+   }
+  }
+ }
+ ~Bibliotheque()
+ { cout << "La bibliothèque "<<nom <<" ferme ses portes,"<<endl <<" et détruit ses exemplaires : "<<endl; 
+  for(auto& element:biblio){
+   delete element;
+   element = nullptr;
+  }
+ }
+   
 };
 
 /*******************************************
@@ -157,10 +157,10 @@ int main()
          a2("Alexandre Dumas"),
          a3("Raymond Queneau", true);
 
-  Oeuvre o1("Les Misérables"           , a1, "français" ),
-         o2("L'Homme qui rit"          , a1, "français" ),
+  Oeuvre o1("Les Misérables" , a1, "français" ),
+         o2("L'Homme qui rit" , a1, "français" ),
          o3("Le Comte de Monte-Cristo" , a2, "français" ),
-         o4("Zazie dans le métro"      , a3, "français" ),
+         o4("Zazie dans le métro" , a3, "français" ),
          o5("The Count of Monte-Cristo", a2, "anglais" );
 
   Bibliotheque biblio("municipale");
