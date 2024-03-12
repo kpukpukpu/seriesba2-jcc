@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+
 using namespace std;
 
 class Flacon
@@ -14,8 +15,27 @@ public:
   /*****************************************************
     Compléter le code à partir d'ici
   *******************************************************/
-
+  Flacon (string Nom, double v, double ph) 
+  : nom(Nom), volume(v), pH(ph) {}
+  
+  ostream& etiquette(ostream& sortie) const{
+	  sortie << nom << " : " << volume << " ml, pH "<<pH; 
+	  return sortie;
+  } 
+  ostream& operator<<(ostream& sortie) const;
+	
+   Flacon operator +(Flacon const& flac1) const{ 
+	  double nvpH= - log10((this->volume* pow(10.0,-this->pH)+flac1.volume* pow(10.0,-flac1.pH))/(this->volume+flac1.volume));
+	  Flacon melange(this->nom + " + " + flac1.nom,flac1.volume + this->volume, nvpH);
+	  // syntaxe premier attribut //
+  return melange;
+  }
+	  
+  
 };
+ostream& operator <<(ostream& sortie, Flacon const& flacon) {
+   return flacon.etiquette(sortie); 
+  }
 
 /*******************************************
  * Ne rien modifier après cette ligne.
