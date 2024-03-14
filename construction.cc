@@ -53,8 +53,7 @@ class Construction
 		  }
 	  }
 	  return sortie;  
-  }
-  ostream& operator <<(ostream& sortie) const; 
+  } 
   
   Construction operator^=(Construction const& batiment){
 	  for(size_t i(0); i<= batiment.contenu.size(); ++i) {
@@ -66,7 +65,7 @@ class Construction
    
 	Construction operator-=(Construction const& batiment){ 
 		if (batiment.contenu.size() == contenu.size()){
-			contenu.push_back(batiment.contenu); // push back vers le faut ici et pas vers l'arrière //
+			contenu.push_back(batiment.contenu); // push back vers le haut ici et pas vers l'arrière //
 		}else { 
 			for (size_t i(0); i<= contenu.size(); ++i){
 				contenu[i].push-back(batiment.contenu[i]); 
@@ -76,7 +75,20 @@ class Construction
 	}
 	const Construction operator-(Construction const& c);
 	
-	Construction operator+=(Construction const& batiment) const {
+	Construction operator+=(Construction const& batiment) {
+		for (size_t i(0); i<= contenu.size()){
+			for (size_t j(0); j<= contenu[i].size()){
+				if (batiment.contenu[i].size() >= contenu[i].size() ) {
+					contenu[i].push_back(batiment.contenu[i][j]); // à verifier//
+				}else if (batiment.contenu[i][j].size() >= contenu [i][j].size()){
+					contenu[i][j].push_back(batiment.contenu[i][j]);
+				}
+			}
+		}
+		retrun *this;
+	}
+					
+		
 	}
 		
 };
@@ -92,16 +104,33 @@ const Construction operator -(Construction const& c, Construction const& batimen
 	return Construction resultat(c.operator -=(batiment)); 
 }
 
-const Construction operator*(unsigned int n, Construction const& a)
-{
+const Construction operator+(Construction const& c Construction const& batiment){
+	return Construction resultat(c.operator+=(batiment));
+}
+
+const Construction operator*(unsigned int n, Construction const& a) { 
+	while (n >0){
+	a.operator+(a); 
+	--i;
+}
+	return a;
 }
 
 const Construction operator/(unsigned int n, Construction const& a)
-{
-}
+{ 
+	while (n>0){
+	a.operator^(a); 
+	--i;
+	}
+	return a;
+
 
 const Construction operator%(unsigned int n, Construction const& a)
-{
+{ while (n>0){
+	a.operator-(a);
+	--i;
+}
+	return a;
 }
 
 /*******************************************
