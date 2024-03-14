@@ -24,8 +24,8 @@ public:
   ostream& operator<<(ostream& sortie) const;
 	
    Flacon operator +(Flacon const& flac1) const{ 
-	  double nvpH= - log10((this->volume* pow(10.0,-this->pH)+flac1.volume* pow(10.0,-flac1.pH))/(this->volume+flac1.volume));
-	  Flacon melange(this->nom + " + " + flac1.nom,flac1.volume + this->volume, nvpH);
+	  double nvpH= - log10((volume* pow(10.0,pH)+flac1.volume* pow(10.0,-flac1.pH))/(volume+flac1.volume));
+	  Flacon melange(nom + " + " + flac1.nom,flac1.volume + volume, nvpH);
 	  // syntaxe premier attribut //
   return melange;
   }
