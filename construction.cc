@@ -43,10 +43,10 @@ class Construction
   Construction (Brique const& B) 
   :contenu(1, vector<vector<Brique>>(1, vector<Brique>(1, B))){}
   ostream& afficher(ostream& sortie) const {
-	  for( size_t i(0), i<=contenu.size(), ++i){
+	  for( size_t i(0); i<=contenu.size(); ++i){
 		  sortie <<" Couche "<<i<<" :" << endl; 
-		  for(size_t j(0), j<= contenu[i].size(), ++j){
-			  for( size_t k(0), k<= contenu[i][j].size(), ++k){
+		  for(size_t j(0); j<= contenu[i].size(); ++j){
+			  for( size_t k(0); k<= contenu[i][j].size(); ++k){
 				  operator <<(sortie, contenu[i][j][k]); 
 			  } // affiche rien si vide ? // 
 		  }
@@ -56,7 +56,7 @@ class Construction
   ostream& operator <<(ostream& sortie) const; 
   
   Construction operator^=(Construction const& batiment) const{
-	  for(size_t i(0), i<= batiment.size(), ++i) {
+	  for(size_t i(0); i<= batiment.size(); ++i) {
 		  this->contenu.push_back(batiment[i]); 
 	  }
 	  return *this; 
@@ -67,7 +67,7 @@ class Construction
 		if (batiment.size() == this->contenu.size()){
 			this->contenu.push_back(batiment); // push back vers le faut ici et pas vers l'arrière //
 		}else { 
-			for (size_t i(0), i<= this->contenu.size(), ++i){
+			for (size_t i(0); i<= this->contenu.size(); ++i){
 				this->contenu.[i]push-back(batiment[i]); 
 			}
 		}
