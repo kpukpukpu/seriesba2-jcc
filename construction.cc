@@ -68,7 +68,7 @@ class Construction
 			contenu.push_back(batiment.contenu); // push back vers le haut ici et pas vers l'arrière //
 		}else { 
 			for (size_t i(0); i<= contenu.size(); ++i){
-				contenu[i].push-back(batiment.contenu[i]); 
+				contenu[i].push_back(batiment.contenu[i]); 
 			}
 		}
 		return *this; 
@@ -76,8 +76,8 @@ class Construction
 	const Construction operator-(Construction const& c);
 	
 	Construction operator+=(Construction const& batiment) {
-		for (size_t i(0); i<= contenu.size()){
-			for (size_t j(0); j<= contenu[i].size()){
+		for (size_t i(0); i<= contenu.size();++i){
+			for (size_t j(0); j<= contenu[i].size();++j){
 				if (batiment.contenu[i].size() >= contenu[i].size() ) {
 					contenu[i].push_back(batiment.contenu[i][j]); // à verifier//
 				}else if (batiment.contenu[i][j].size() >= contenu [i][j].size()){
@@ -85,50 +85,49 @@ class Construction
 				}
 			}
 		}
-		retrun *this;
+		return *this;
 	}
-					
-		
-	}
+const Construction operator+(Construction const& c);
+
 		
 };
-ostream& operator<<(ostream& sortie, Construction const& batiment) const{
+ostream& operator<<(ostream& sortie, Construction const& batiment){
 	return batiment.afficher(sortie);
 }
 
-const Construction operator^(Construction const& c, Construction const& batiment){
-	return Construction resultat(c.operator ^=(batiment));
+const Construction operator^(Construction c, Construction const& batiment){
+	return c.operator ^=(batiment);
 }
 
-const Construction operator -(Construction const& c, Construction const& batiment){
-	return Construction resultat(c.operator -=(batiment)); 
+const Construction operator -(Construction c, Construction const& batiment){
+	return c.operator -=(batiment); 
 }
 
-const Construction operator+(Construction const& c Construction const& batiment){
-	return Construction resultat(c.operator+=(batiment));
+const Construction operator+(Construction c, Construction const& batiment){
+	return c.operator+=(batiment);
 }
 
-const Construction operator*(unsigned int n, Construction const& a) { 
+const Construction operator*(unsigned int n, Construction a) { 
 	while (n >0){
 	a.operator+(a); 
-	--i;
+	--n;
 }
 	return a;
 }
 
-const Construction operator/(unsigned int n, Construction const& a)
+const Construction operator/(unsigned int n, Construction a)
 { 
 	while (n>0){
 	a.operator^(a); 
-	--i;
+	--n;
 	}
 	return a;
 
-
-const Construction operator%(unsigned int n, Construction const& a)
+}
+const Construction operator%(unsigned int n, Construction a)
 { while (n>0){
 	a.operator-(a);
-	--i;
+	--n;
 }
 	return a;
 }
