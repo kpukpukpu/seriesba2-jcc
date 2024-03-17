@@ -157,10 +157,10 @@ int main()
          a2("Alexandre Dumas"),
          a3("Raymond Queneau", true);
 
-  Oeuvre o1("Les Misérables" , a1, "français" ),
-         o2("L'Homme qui rit" , a1, "français" ),
+  Oeuvre o1("Les Misérables"           , a1, "français" ),
+         o2("L'Homme qui rit"          , a1, "français" ),
          o3("Le Comte de Monte-Cristo" , a2, "français" ),
-         o4("Zazie dans le métro" , a3, "français" ),
+         o4("Zazie dans le métro"      , a3, "français" ),
          o5("The Count of Monte-Cristo", a2, "anglais" );
 
   Bibliotheque biblio("municipale");
