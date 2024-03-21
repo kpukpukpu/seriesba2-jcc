@@ -24,12 +24,13 @@ private:
 	   if (this->age() <=5){ //inegalite stricte ?//
 		   prix = valeur_faciale; 
 	   }else {
-		   prix = 2.5* valeur_faciale*annee;
+		   prix = 2.5* valeur_faciale*age();
 	   }
 	   return prix; 
    }
    Timbre (string n, unsigned int A, string p = "Suisse", double val=1.0)
    : nom(n), annee(A), pays(p), valeur_faciale(val) {}
+   
    ostream& afficher(ostream& sortie)const{
 	   sortie <<"de nom "<<this->nom
 	   <<" datant de " <<this->annee<<" (provenance "<<this->pays

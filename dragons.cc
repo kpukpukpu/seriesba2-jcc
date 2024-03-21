@@ -20,8 +20,12 @@ class Creature
  int force_; 
  int position_;
  public:
- Creature(const string n, int niv, int pdv, int pos =0)
- : nom(n), niveau_(niv), points_de_vie_(pdv), position_(pos) {}
+ Creature(const string n, int niv, int pdv, int strenght, int pos =0)
+ : nom(n), niveau_(niv), points_de_vie_(pdv), force_(strenght), position_(pos) {}
+ 
+ int position(){
+	 return position_; 
+ }
  
  bool vivant() {
 	 bool vivant = false; 
@@ -38,7 +42,7 @@ class Creature
 	 return attaque; 
  }
  void deplacer(int n){
-	 position_ = position_ +n; 
+	 position_= position_ +n; 
  }
  void adieux() {
 	 cout << this->nom <<" n'est plus!"<<endl; 
@@ -55,17 +59,53 @@ class Creature
  void afficher(){
 	 cout << this->nom<<", niveau: "<<this->niveau_<<", points de vie: "<<this->points_de_vie_
 	 <<", force: "<<this->force_<<", points d'attaque: "
-	 <<this->points_attaque()<<", position: "<<this->position_;
+	 <<this->points_attaque()<<", position: "<<this->position_<<endl;
  }
 		
 };
 class Dragon : public Creature {
 	int portee_flamme_; 
 	public: 
-	Dragon 
+	Dragon(const string n, int niv, int pdv, int strenght, int flamme, int pos=0)
+	:Creature(n, niv, pdv, strenght, pos), portee_flamme_(flamme){}
+	void voler (int pos){
+		position_=pos;
+	}
+	void souffle_sur(Creature& bete){
+		int dist = distance (bete.position(), this->position_);
+		if (vivant() and bete.vivant() and portee_flamme_<=dist){ // revoir la derniere condition//
+			bete.faiblir(this->points_attaque()); 
+			this->faiblir(dist);
+		}
+		if (vivant() and not bete.vivant()){
+			this->niveau_+=1; 
+		}
+	}
+}; 
+class Hydre : public Creature {
+	int longueur_cou_; 
+	int dose_poison_; 
+	public: 
+	Hydre( string n, int niv, int pdv, int strenght, int cou, int poison, int pos=0)
+	:Creature(n, niv, pdv, strenght, pos), longueur_cou_(cou), dose_poison_(poison)
+	{}
+	void empoisonne(Creature& bete){
+		int portee_cou = distance(position_, bete.position());
+		if (vivant() and bete.vivant() and longueur_cou_<= portee_cou){
+			bete.faiblir(points_attaque() + dose_poison_); 
+		}
+		if ( vivant() and not bete.vivant()){
+			niveau_+=1; 
+		}
+	}
+	
+			
 	
 }; 
-
+void combat(Dragon& dragon, Hydre& hydre){
+		hydre.empoisonne(dragon); 
+		dragon.souffle_sur(hydre); 
+		}
 /*******************************************
  * Ne rien modifier après cette ligne.
  *******************************************/
