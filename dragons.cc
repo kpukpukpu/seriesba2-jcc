@@ -23,11 +23,11 @@ class Creature
  Creature(const string n, int niv, int pdv, int strenght, int pos =0)
  : nom(n), niveau_(niv), points_de_vie_(pdv), force_(strenght), position_(pos) {}
  
- int position(){
+ int position() const {
 	 return position_; 
  }
  
- bool vivant() {
+ bool vivant() const {
 	 bool vivant = false; 
 	 if (points_de_vie_ >0){
 		 vivant = true; 
@@ -41,10 +41,12 @@ class Creature
 	 }
 	 return attaque; 
  }
- void deplacer(int n){
-	 position_= position_ +n; 
+ void deplacer(int n) {
+	 if (vivant()) {
+		position_= position_ +n;
+	 } 
  }
- void adieux() {
+ void adieux() const {
 	 cout << this->nom <<" n'est plus!"<<endl; 
  }
  void faiblir (int p_recus){
@@ -68,16 +70,19 @@ class Dragon : public Creature {
 	public: 
 	Dragon(const string n, int niv, int pdv, int strenght, int flamme, int pos=0)
 	:Creature(n, niv, pdv, strenght, pos), portee_flamme_(flamme){}
-	void voler (int pos){
-		position_=pos;
+	void voler (int pos) {
+		if (Creature::vivant()) {
+			position_=pos;
+		}
 	}
 	void souffle_sur(Creature& bete){
 		int dist = distance (bete.position(), this->position_);
-		if (vivant() and bete.vivant() and portee_flamme_<=dist){ // revoir la derniere condition//
+		bool was_vivant = bete.vivant();
+		if (vivant() and bete.vivant() and portee_flamme_>dist){ 
 			bete.faiblir(this->points_attaque()); 
 			this->faiblir(dist);
 		}
-		if (vivant() and not bete.vivant()){
+		if (vivant() and not bete.vivant() && was_vivant){
 			this->niveau_+=1; 
 		}
 	}
@@ -90,11 +95,12 @@ class Hydre : public Creature {
 	:Creature(n, niv, pdv, strenght, pos), longueur_cou_(cou), dose_poison_(poison)
 	{}
 	void empoisonne(Creature& bete){
+		bool was_vivant = bete.vivant();
 		int portee_cou = distance(position_, bete.position());
-		if (vivant() and bete.vivant() and longueur_cou_<= portee_cou){
+		if (vivant() and bete.vivant() and portee_cou <= longueur_cou_){
 			bete.faiblir(points_attaque() + dose_poison_); 
 		}
-		if ( vivant() and not bete.vivant()){
+		if (vivant() and not bete.vivant() and was_vivant){
 			niveau_+=1; 
 		}
 	}

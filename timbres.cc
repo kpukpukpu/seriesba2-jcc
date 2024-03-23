@@ -62,15 +62,17 @@ class Rare : public Timbre{
 		
 	return prixb * (this->age()/10.0);
 }
-   unsigned int get_exemplaires()const{
-	   return exemplaires;
-	   }
    Rare(string n, unsigned int A, string p = "Suisse", double val=1.0, unsigned int ex=100)
    : Timbre(n, A, p, val), exemplaires(ex) {}
    
+   unsigned int nb_exemplaires()const{
+	return exemplaires; 
+}
 };
+
+
 ostream& operator<<(ostream& sortie, Rare const& r){
-	sortie <<"Timbre rare ("<<r.get_exemplaires()<<" ex.) ";
+	sortie <<"Timbre rare ("<<r.nb_exemplaires()<<" ex.) ";
 	r.afficher(sortie);
 	return sortie; 
 }
